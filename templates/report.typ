@@ -3,7 +3,7 @@
 /// - department (string): 院系
 /// - major (string): 专业
 /// - course (string): 课程
-/// - students (array ): 学生（名字，学号）
+/// - students (array): 学生（名字，学号）
 /// - teacher (string): 教师
 /// - finish_time (datetime): 完成时间
 /// - body (content): 正文
@@ -45,7 +45,9 @@
               ..students
                 .map(((name, id)) => (
                   align(right)[
-                    #if (name.len() == 2) { name.at(0) + "　" + name.at(1) } else { name }
+                    #if (name.clusters().len() == 2) { name.clusters().at(0) + "　" + name.clusters().at(1) } else {
+                      name
+                    }
                   ],
                   align(left)[#id],
                 ))
@@ -94,29 +96,3 @@
 
   body
 }
-
-#report(
-  "计算机科学与技术学院",
-  "计算机科学与技术",
-  "高级程序设计",
-  (("李依馨", "04240418"), ("王五", "04240416")),
-  "张三",
-  datetime(year: 2025, month: 5, day: 28),
-)[
-  = Hello, World!
-
-  Latin Bold *OK*
-
-  CJK Bold *你好*
-
-  == Goodbye, World! 你好
-  = Welcome, World!
-  == Bye, World!
-  === Go, World!
-  === Jump, World!
-  == Just, World!
-]
-
-
-
-

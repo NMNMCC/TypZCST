@@ -1,0 +1,41 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Typst
+        run: |
+          curl -fsSL https://typst.community/typst-install/install.sh | sudo TYPST_INSTALL="/usr/local" sh -s 0.13.1
+
+      - name: Find and compile test files
+        run: |
+          mkdir -p results
+          find . -name "*test.typ" -type f | while read -r file; do
+            basename=$(basename "$file" .typ)
+            dirname=$(dirname "$file")
+            typst compile --ignore-system-fonts --font-path fonts  "$file" "results/${basename}.pdf"
+          done
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_branch: test
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./results
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: results/
