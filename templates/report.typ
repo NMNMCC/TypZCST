@@ -72,6 +72,7 @@
   show heading: set block(below: 1.5em)
 
   set par(spacing: 1em)
+
   show strong: it => {
     let content = it.body
     let text_value = if content != none { content.text } else { "" }
@@ -93,6 +94,9 @@
       text(weight: "bold", content)
     }
   }
+
+  set raw(theme: none)
+  show raw: set text(size: 12pt, font: "Courier Prime")
 
   body
 }

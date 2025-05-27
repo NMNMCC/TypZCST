@@ -15,6 +15,11 @@
   CJK Bold *你好*
 
   == Goodbye, World! 你好
+
+  以下是一段 `OCaml` 代码
+  ```ml
+  let more x = (+) 1
+  ```
   = Welcome, World!
   == Bye, World!
   === Go, World!
