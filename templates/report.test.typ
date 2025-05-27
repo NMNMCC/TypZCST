@@ -18,7 +18,7 @@
 
   以下是一段 `OCaml` 代码
   ```ml
-  let more x = (+) 1
+  let more x = (+) 1 x
   ```
   = Welcome, World!
   == Bye, World!
