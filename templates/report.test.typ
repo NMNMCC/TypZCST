@@ -1,28 +1,36 @@
 #import "report.typ": report
 
-#report(
-  "计算机科学与技术学院",
-  "计算机科学与技术",
-  "高级程序设计",
-  (("李依馨", "04240418"), ("王五", "04240416")),
-  "张三",
-  datetime(year: 2025, month: 5, day: 28),
-)[
-  = Hello, World!
+#show: doc => report(
+  department: "计算机",
+  major: "计算机科学与技术",
+  course: "高级程序设计",
+  students: (("李依馨", "04180424"), ("王五", "04240216")),
+  teacher: "张三",
+  finish_time: datetime(year: 2025, month: 5, day: 28),
+  doc,
+)
 
-  Latin Bold *OK*
+= Hello, World!
 
-  CJK Bold *你好*
+Latin Bold *OK*
 
-  == Goodbye, World! 你好
+CJK Bold *你好*
 
-  以下是一段 `OCaml` 代码
-  ```ml
-  let more x = (+) 1 x
-  ```
-  = Welcome, World!
-  == Bye, World!
-  === Go, World!
-  === Jump, World!
-  == Just, World!
-]
+== Goodbye, World! 你好
+
+以下是一段 `OCaml` 代码
+```ml
+let more x = (+) 1 x
+```
+
+```typescript
+const name = "Supersupersupersupersupersupersupersupersupersupersupersupersupersupersuper long name"
+console.log(name)
+```
+
+= Welcome, World!
+== Bye, World!
+=== Go, World!
+=== Jump, World!
+== Just, World!
+

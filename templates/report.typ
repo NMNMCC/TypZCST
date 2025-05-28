@@ -9,12 +9,12 @@
 /// - body (content): 正文
 /// -> content
 #let report(
-  department,
-  major,
-  course,
-  students,
-  teacher,
-  finish_time,
+  department: "院系",
+  major: "专业",
+  course: "课程",
+  students: (("姓名", "学号"),),
+  teacher: "教师",
+  finish_time: datetime(year: 1970, month: 1, day: 1),
   body,
 ) = {
   import "@preview/cuti:0.3.0": show-cn-fakebold, show-fakebold
@@ -34,28 +34,28 @@
           columns: (1fr, 3fr),
           stroke: 0.1pt,
           inset: (x: 12pt, y: 12pt),
-          [院　　系：], [#department],
-          [专　　业：], [#major],
-          [科　　目：], [#course],
-          [学　　生：],
-          [#grid(
-              columns: (1fr, 1fr),
-              inset: (x: 2pt, y: 4pt),
-
-              ..students
+          [院　　系], [#department],
+          [专　　业], [#major],
+          [科　　目], [#course],
+          [学　　生],
+          [
+            #(
+              students
                 .map(((name, id)) => (
-                  align(right)[
-                    #if (name.clusters().len() == 2) { name.clusters().at(0) + "　" + name.clusters().at(1) } else {
-                      name
-                    }
-                  ],
-                  align(left)[#id],
+                  if (name.clusters().len() == 2) {
+                    name.clusters().at(0) + "　" + name.clusters().at(1)
+                  } else {
+                    name
+                  }
+                    + "　"
+                    + id
                 ))
-                .flatten(),
-            )],
+                .join(linebreak())
+            )
+          ],
 
-          [指导教师：], [#teacher],
-          [完成时间：], [#finish_time.display("[year]年[month]月[day]日")],
+          [指导教师], [#teacher],
+          [完成时间], [#finish_time.display("[year]年[month]月[day]日")],
         )]
     ]]
 
@@ -97,6 +97,30 @@
 
   set raw(theme: none)
   show raw: set text(size: 12pt, font: "Courier Prime")
+  show raw.where(block: true): it => {
+    set text(size: 10pt)
+    set par(justify: false, linebreaks: "optimized", leading: 1em)
+
+    box(width: 100%, inset: 8pt, fill: color.rgb(222, 222, 222))[
+      #align(right)[#underline[#it.lang]]
+
+      #let lines = it.text.split("\n")
+
+      #set par(justify: false, linebreaks: "optimized", leading: 1em)
+
+      #table(
+        columns: (auto, auto),
+        stroke: none,
+
+        ..lines
+          .enumerate()
+          .map(((i, line)) => (
+            ([#align(right)[#(i + 1)]], [#line.split("").join(sym.zws)])
+          ))
+          .flatten()
+      )
+    ]
+  }
 
   body
 }
