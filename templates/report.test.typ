@@ -29,6 +29,10 @@ console.log(name)
 ```
 
 = Welcome, World!
+
+#lorem(50)
+
+#figure(image("./report.test.png"), caption: "这是一张图片")
 == Bye, World!
 === Go, World!
 === Jump, World!

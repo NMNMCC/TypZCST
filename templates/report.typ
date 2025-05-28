@@ -122,5 +122,7 @@
     ]
   }
 
+  set figure(numbering: "1.1.1", supplement: "图")
+
   body
 }
